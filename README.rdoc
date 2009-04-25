@@ -1,6 +1,6 @@
 = FECHell
 
-Parsing a loading electronically filed fundraising reports from the Federal Election Commission. 
+Parsing a loading electronically filed fundraising reports from the Federal Election Commission. FECHell uses format definition files from Watchdog.net (http://watchdog.net/data/crawl/fec/electronic/headers/). 
 
 == Install
 
@@ -13,3 +13,12 @@ sudo gem install fechell
 
   h = FECHell.new
 
+  h.load('path_to.fec') do |line|
+	  schedule = line[0]
+	  values = line[1]
+	  puts "line is a schedule #{schedule} with keys #{values.keys.join(',')}"
+  end
+
+== Todo
+ - Better error checking on failed schedule identification.
+ - Convert Watchdog.net CSV files into ruby classes
