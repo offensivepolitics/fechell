@@ -1,0 +1,15 @@
+= FECHell
+
+Parsing a loading electronically filed fundraising reports from the Federal Election Commission. 
+
+== Install
+
+sudo gem install fechell
+
+== Usage
+
+  require 'rubygems'
+  require 'fechell'
+
+  h = FECHell.new
+
