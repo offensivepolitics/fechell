@@ -4,7 +4,7 @@ Parsing a loading electronically filed fundraising reports from the Federal Elec
 
 == Install
 
-sudo gem install fechell
+sudo gem install offensivepolitics-fechell
 
 == Usage
 
@@ -20,5 +20,6 @@ sudo gem install fechell
   end
 
 == Todo
+ - Support v3.0 electronic filing
  - Better error checking on failed schedule identification.
  - Convert Watchdog.net CSV files into ruby classes
