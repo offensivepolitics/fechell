@@ -20,6 +20,8 @@ sudo gem install offensivepolitics-fechell
   end
 
 == Changes
+  0.1.3
+    Removed extra files from distribution. 
   0.1.2
     Added fastercsv gem as an install dependency
   0.1.1
