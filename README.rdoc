@@ -19,6 +19,10 @@ sudo gem install offensivepolitics-fechell
 	  puts "line is a schedule #{schedule} with keys #{values.keys.join(',')}"
   end
 
+== Changes
+  0.1.1
+    Added support for version 6.3 FEC files
+
 == Todo
  - Support v3.0 electronic filing
  - Better error checking on failed schedule identification.
