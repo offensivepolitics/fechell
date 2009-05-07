@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jason Holt"]
-  s.date = %q{2009-04-25}
+  s.date = %q{2009-05-06}
   s.description = %q{Parse electronically filed FEC reports.}
   s.email = %q{jjh@offensivepolitics.net}
-  s.extra_rdoc_files = [ "README.rdoc"]
-  s.files = ["lib/defs/3.00.csv", "lib/defs/5.00.csv", "lib/defs/5.1.csv", "lib/defs/5.2.csv", "lib/defs/5.3.csv", "lib/defs/6.1.csv", "lib/defs/6.2.csv", "lib/defs/6.3.csv","lib/fechell.rb", "Manifest", "Rakefile", "README.rdoc", "fechell.gemspec"]
+  s.extra_rdoc_files = ["README.rdoc"]
+  s.files = ["lib/defs/3.00.csv", "lib/defs/5.00.csv", "lib/defs/5.1.csv", "lib/defs/5.2.csv", "lib/defs/5.3.csv", "lib/defs/6.1.csv", "lib/defs/6.2.csv", "lib/defs/6.3.csv", "lib/fechell.rb", "README.rdoc", ]
   s.has_rdoc = true
   s.homepage = %q{http://offensivepolitics.net/fechell}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Fechell", "--main", "README.rdoc"]
