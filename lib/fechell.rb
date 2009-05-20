@@ -175,7 +175,7 @@ class FECHell
 					next if line.size == 0
 					sch = line[0]
 
-					next unless sch.match('^[STF]')
+					next unless sch.match('^[STFH]')
 
 					guesses,values = process_line(header[:fec_version],sch,line)
 
