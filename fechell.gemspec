@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = %q{Parse electronically filed FEC reports.}
   s.email = %q{jjh@offensivepolitics.net}
   s.extra_rdoc_files = ["README.rdoc"]
-  s.files = ["lib/defs/3.00.csv", "lib/defs/5.00.csv", "lib/defs/5.1.csv", "lib/defs/5.2.csv", "lib/defs/5.3.csv", "lib/defs/6.1.csv", "lib/defs/6.2.csv", "lib/defs/6.3.csv", "lib/defs/6.4.csv", "lib/fechell.rb", "README.rdoc", "fechell.gemspec"]
+  s.files = ["lib/defs/3.00.csv", "lib/defs/5.00.csv", "lib/defs/5.1.csv", "lib/defs/5.2.csv", "lib/defs/5.3.csv", "lib/defs/6.1.csv", "lib/defs/6.2.csv", "lib/defs/6.3.csv", "lib/defs/6.4.csv", "lib/fechell.rb","Rakefile", "README.rdoc", "fechell.gemspec"]
   s.has_rdoc = true
   s.homepage = %q{http://offensivepolitics.net/fechell}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Fechell", "--main", "README.rdoc"]

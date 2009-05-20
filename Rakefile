@@ -7,7 +7,7 @@ Echoe.new('fechell', '0.1.4') do |p|
   p.url            = "http://offensivepolitics.net/fechell"
   p.author         = "Jason Holt"
   p.email          = "jjh@offensivepolitics.net"
-  p.ignore_pattern = ["tmp/*", "script/*", "Manifest", "Rakefile"]
+  p.ignore_pattern = ["tmp/*", "script/*", "Rakefile"]
   p.development_dependencies = []
   p.rdoc_pattern = ['README.rdoc']
   p.runtime_dependencies = ['fastercsv']
