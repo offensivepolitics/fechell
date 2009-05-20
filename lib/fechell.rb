@@ -13,7 +13,7 @@ class FECHell
 								"6.1" => "\x1e",
 								"6.2" => "\x1e",
 								"6.3" => "\x1e",
-								"6.3" => "\x1e"
+								"6.4" => "\x1e"
 							 }
 				
 	def self.load_modules
