@@ -20,6 +20,10 @@ sudo gem install offensivepolitics-fechell
   end
 
 == Changes
+  0.1.6 
+  Fixed version numbers in FECHell::Versions
+
+
   0.1.5 
     Fixed optional 'options' parameter to FECHell::process() call
 
