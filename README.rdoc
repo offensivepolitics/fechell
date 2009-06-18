@@ -8,24 +8,82 @@ sudo gem install offensivepolitics-fechell
 
 == Usage
 
-  require 'rubygems'
-  require 'fechell'
+require 'rubygems'
+require 'fechell'
+require 'open-uri'
 
-  h = FECHell.new
-
-  h.load('path_to.fec') do |line|
-	  schedule = line[0]
-	  values = line[1]
-	  puts "line is a schedule #{schedule} with keys #{values.keys.join(',')}"
+# convenience function to download a file from a URL and save it locally
+def savefile(filename,url)
+  File.open(filename,"w") do |file|
+    file.puts open(url).read
   end
+end
+
+h = FECHell.new
+
+# Grab the year-end fundraising reports by candidates for the 5th district of Virginia. This race was incredibly close and decided by less than 800 votes.
+
+# fetch Goode for Congress F3, Year End 2008
+savefile("goode.fec","http://query.nictusa.com/dcdev/posted/392684.fec")
+
+# fetch Perriello for Congress F3, Year end 2008
+savefile('perriello.fec',"http://query.nictusa.com/dcdev/posted/401630.fec")
+
+# extract the financial summary of each campaign. we want total receipts this period and cycle to date, total disbursements this period and cycle to date, 
+# and the cash position at the beginning and end of this reporting period
+
+['goode.fec','perriello.fec'].each do |filename|
+  h.process(filename) do |v|
+    schedule = v[0]
+    values = v[1]
+    next if schedule != 'F3'
+    puts "For '#{values['COMMITTEE NAME']}'"
+    
+    
+    puts "Total receipts this period: #{values['Column A 24. Total Receipts this Period']}"
+    puts "Total receipts cycle-to-date: #{values['Column B 16. Total Receipts']}"
+    puts "Total disbursements this period: #{values['Column A 26. Total Disbursements this Period']}"
+    puts "Total disbursements cycle-to-date: #{values['Column B 22. Total Disbursements']}"
+    puts "Cash-on-hand beginning of period: #{values['Column A 23. Cash Beginning Reporting Period']}"
+    puts "Cash-on-hand end of period:  #{values['Column A 27. Cash on hand at Close Period']}"
+  puts "\n"
+  end
+end
+
+# From this output we see that Rep Goode outspent Perriello by more than a million dollars, but still lost his seat by 727 votes.
+
+puts "==="
+
+# fetch HuckPac F3X, Post General, 2008
+savefile('huckpac.fec','http://query.nictusa.com/dcdev/posted/407479.fec')
+# extract disbursements (schedule B) made this period by HuckPAC with the expenditure purpose(key="EXPENDITURE PURPOPOSE DESCRIPTION") of "Payroll"
+puts "TO,DATE,AMOUNT"
+h.process("huckpac.fec") do |v|
+  schedule = v[0]
+  values = v[1]
+  
+  next if schedule != 'SB'
+  
+  next if values['EXPENDITURE PURPOSE DESCRIP'] != 'Payroll'
+  
+  puts "#{values['PAYEE FIRST NAME']} #{values['PAYEE LAST NAME']},#{values['EXPENDITURE DATE']},#{values['EXPENDITURE AMOUNT']}"
+  
+end
+
+# From this we can see that HuckPAC keeps 5 full-time people on staff, including his daughter Sarah. 
+
 
 == Changes
+  0.1.8
+    Prepended "Column A" or "Column B" to forms F3,F3P,F3X,F3Z for all FEC DEF files to accommodate duplicate key names. 
+    Added HDR records to all the FEC DEF files
+	Updated schedule identifier to allow HDR (header) lines to pass through system
+
   0.1.7 
     Added support for the FEC header line (schedule=HDR) to format files 5.0-6.4 
 
   0.1.6 
     Fixed version numbers in FECHell::Versions
-
 
   0.1.5 
     Fixed optional 'options' parameter to FECHell::process() call
@@ -43,6 +101,7 @@ sudo gem install offensivepolitics-fechell
     Added support for version 6.3 FEC files
 
 == Todo
+ - Normalize KEY names in DEF files (NO vs No, etc)
  - Support v3.0 electronic filing
  - Better error checking on failed schedule identification.
  - Convert Watchdog.net CSV files into ruby classes

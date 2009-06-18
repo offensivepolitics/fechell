@@ -148,7 +148,6 @@ class FECHell
 
 	def process_line(fec_version,schedule,line)
 		guesses = guess_schedule(fec_version,schedule)		
-
 		offsets = @@modules[fec_version][guesses[0]]
 		values = {}
 		index =0
@@ -165,10 +164,12 @@ class FECHell
 			seperator,header,form_type,elements = peek_format(filename)		
 
 			schedules = guess_schedule(header[:fec_version],form_type)
+						
 			if schedules.size == 0 then
 				puts "ERROR: #{filename} - type was #{form_type} we found nothing"
 			end
 			offsets = @@modules[header[:fec_version]][schedules[0]]
+			
 			begin 
 				FasterCSV.open(filename,:col_sep => seperator).each do |line|
 					next if line.nil?
