@@ -4,7 +4,12 @@ Parsing a loading electronically filed fundraising reports from the Federal Elec
 
 == Install
 
-sudo gem install offensivepolitics-fechell
+# remove old versions from github installs
+
+sudo gem uninstall offensivepolitics-fechell
+
+# install new version hosted @ gemcutter / rubygems.orb
+sudo gem install fechell
 
 == Usage
 
