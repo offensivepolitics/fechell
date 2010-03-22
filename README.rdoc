@@ -10,6 +10,7 @@ sudo gem install offensivepolitics-fechell
 
 	require 'rubygems'
 	require 'fechell'
+	require 'fechell/forms.rb'
 	require 'open-uri'
 
 	# convenience function to download a file from a URL and save it locally
@@ -33,24 +34,21 @@ sudo gem install offensivepolitics-fechell
 	# extract the financial summary of each campaign. we want total receipts this period and cycle to date, total disbursements this period and cycle to date, 
 	# and the cash position at the beginning and end of this reporting period
 
+	# note we're using the new FECForm.form_for function that takes any version FECHell parameter hash and returns a full ruby object
 	['goode.fec','perriello.fec'].each do |filename|
-	  h.process(filename) do |v|
-	    schedule = v[0]
-	    values = v[1]
-	    next if schedule != 'F3'
-	    puts "For '#{values['COMMITTEE NAME']}'"
-    
-    
-	    puts "Total receipts this period: #{values['Column A 24. Total Receipts this Period']}"
-	    puts "Total receipts cycle-to-date: #{values['Column B 16. Total Receipts']}"
-	    puts "Total disbursements this period: #{values['Column A 26. Total Disbursements this Period']}"
-	    puts "Total disbursements cycle-to-date: #{values['Column B 22. Total Disbursements']}"
-	    puts "Cash-on-hand beginning of period: #{values['Column A 23. Cash Beginning Reporting Period']}"
-	    puts "Cash-on-hand end of period:  #{values['Column A 27. Cash on hand at Close Period']}"
-	  puts "\n"
-	  end
+	  fec_version, original_form_type, form_type, values = h.header_lines(filename)
+		next unless form_type == "F3" && fec_version.to_i >= 3
+	
+		f = FECForm.schedule_for(form_type, fec_version, values)
+		puts "For: #{f.committee_name}"
+	  puts "Total receipts this period: #{f.col_A_line_24}"
+	  puts "Total receipts cycle-to-date: #{f.col_B_line_16}"
+	  puts "Total disbursements this period: #{f.col_A_line_26}"
+	  puts "Total disbursements cycle-to-date: #{f.col_B_line_22}"
+	  puts "Cash-on-hand beginning of period: #{f.col_A_line_23}"
+	  puts "Cash-on-hand end of period:  #{f.col_A_line_27}"
+		puts "\n\n"
 	end
-
 	# From this output we see that Rep Goode outspent Perriello by more than a million dollars, but still lost his seat by 727 votes.
 
 	puts "==="
@@ -58,6 +56,7 @@ sudo gem install offensivepolitics-fechell
 	# fetch HuckPac F3X, Post General, 2008
 	savefile('huckpac.fec','http://query.nictusa.com/dcdev/posted/407479.fec')
 	# extract disbursements (schedule B) made this period by HuckPAC with the expenditure purpose(key="EXPENDITURE PURPOPOSE DESCRIPTION") of "Payroll"
+	# still using the previous hash syntax since the object model for F3X forms isn't done yet
 	puts "TO,DATE,AMOUNT"
 	h.process("huckpac.fec") do |v|
 	  schedule = v[0]
