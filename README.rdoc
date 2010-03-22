@@ -75,6 +75,14 @@ sudo gem install offensivepolitics-fechell
 
 
 == Changes
+  0.1.9
+    Massive speedup in form-type detection
+    Dozens of changes to definition files 
+    Several bug-fixes for early format 5.0 files
+    Initial support for V3.0 files (circa early 2000)
+    Added FEC version-independent Form classes that can transform a FECHell hash into an actual class
+    Added monolithic unit test for every file version for the following schedules / forms: F3, SA, SB, SC, SC1
+    
   0.1.8
     Prepended "Column A" or "Column B" to forms F3,F3P,F3X,F3Z for all FEC DEF files to accommodate duplicate key names. 
     Added HDR records to all the FEC DEF files
@@ -102,7 +110,5 @@ sudo gem install offensivepolitics-fechell
     Added support for version 6.3 FEC files
 
 == Todo
- - Normalize KEY names in DEF files (NO vs No, etc)
- - Support v3.0 electronic filing
- - Better error checking on failed schedule identification.
- - Convert Watchdog.net CSV files into ruby classes
+  Add unit tests for Schedule C v2 (SC2)
+  Add Form class definition for missing form types (F1,F2,F3X,F3P)
