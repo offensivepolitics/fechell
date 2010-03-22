@@ -8,7 +8,8 @@ Parsing a loading electronically filed fundraising reports from the Federal Elec
 
 	sudo gem uninstall offensivepolitics-fechell
 
-	# install new version hosted @ gemcutter / rubygems.orb
+	# install new version hosted @ gemcutter / rubygems.org
+	
 	sudo gem install fechell
 
 == Usage
