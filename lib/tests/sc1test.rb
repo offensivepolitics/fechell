@@ -610,7 +610,6 @@ class TC_FECTestScheduleC1 < Test::Unit::TestCase
 		end
 	end
 
-	
 end
 
 Test::Unit::UI::Console::TestRunner.run(TC_FECTestScheduleC1)

@@ -19,6 +19,7 @@ class TC_FECTestScheduleC < Test::Unit::TestCase
 		@testfiles["6.2"] = "tests/testdata/F3-6.2-350353-SC.fec"
 		@testfiles["6.3"] = "tests/testdata/F3-6.3-413060-SC.fec"
 		@testfiles["6.4"] = "tests/testdata/F3-6.4-420048-SC.fec"		
+		@testfiles["7.0"] = "tests/testdata/F3-7.0-720829-SC.fec"		
 	end
 	
 	def test_v300
@@ -382,6 +383,55 @@ class TC_FECTestScheduleC < Test::Unit::TestCase
 
 				break
 			end
-		end
+		end				
+	end		
+	
+	def test_v70
+		h = FECHell.new
+
+		fec_version,original_form_type, form_type, values = h.header_lines(@testfiles["7.0"])
+		
+		h.process(@testfiles["7.0"]) do |line|
+			schedule = line[0]
+			values = line[1]
+	
+			f = FECForm.schedule_for(schedule, fec_version, values)			
+			if schedule == "SC"
+# "SC/10","C00462721","SC/10.6480","13A","CAN","","MILLER","BRIAN ALLAN","Allan","","","PO BOX 15023","","TUCSON","AZ","85708","P2010","","15000.00","0.00","15000.00","20100515","07/10/2011","0.0421","N","Y","","H0AZ08031","MILLER","BRIAN ALLAN","Allan","","","H","AZ","08","",""
+				assert_equal('C00462721',f.committee_fecid)
+				assert_equal('SC/10.6480',f.transaction_id)
+				assert_equal('13A', f.receipt_line_number)
+				assert_equal('CAN',f.entity_type)
+				assert_equal('MILLER',f.lender_last_name)
+				assert_equal('BRIAN ALLAN',f.lender_first_name)
+				assert_equal('Allan',f.lender_middle_name)
+				assert_equal('',f.lender_prefix)
+				assert_equal('PO BOX 15023',f.lender_street_1)
+				assert_equal('TUCSON',f.lender_city)
+				assert_equal('AZ',f.lender_state)
+				assert_equal('85708',f.lender_zip)
+				assert_equal('P2010',f.election_code)
+				assert_equal('',f.election_other_description)
+				assert_equal('15000.00',f.loan_amount_original)
+				assert_equal('0.00',f.loan_payment_to_date)
+				assert_equal('15000.00',f.loan_balance)
+				assert_equal('20100515',f.loan_incurred_date)
+				assert_equal('07/10/2011',f.loan_due_date)
+				assert_equal('0.0421',f.loan_interest_rate)
+				assert_equal('N', f.loan_secured)
+				assert_equal('Y', f.loan_personal_funds)	
+				assert_equal('H0AZ08031', f.lender_candidate_fecid)
+				assert_equal('MILLER', f.lender_candidate_last_name)
+				assert_equal('BRIAN ALLAN', f.lender_candidate_first_name)
+				assert_equal('Allan', f.lender_candidate_middle_name)
+				assert_equal('', f.lender_candidate_prefix)
+				assert_equal('H', f.lender_candidate_office)
+				assert_equal('AZ', f.lender_candidate_state)
+				assert_equal('08', f.lender_candidate_district)
+
+				break
+			end
+		end				
 	end		
 end
+

@@ -24,6 +24,7 @@ class TC_FECTestScheduleB < Test::Unit::TestCase
 		@testfiles["6.2"] = "tests/testdata/F3-6.2-350775-SB.fec"
 		@testfiles["6.3"] = "tests/testdata/F3-6.3-413226-SB.fec"
 		@testfiles["6.4"] = "tests/testdata/F3-6.4-424586-SB.fec"		
+		@testfiles["7.0"] = "tests/testdata/F3-7.0-720829-SB.fec"
 	end
 	
 	def test_v300
@@ -379,6 +380,38 @@ class TC_FECTestScheduleB < Test::Unit::TestCase
 				assert_equal('1083.00',f.expenditure_amount)
 				assert_equal('0.00',f.expenditure_purpose_code)
 				assert_equal('Storage Fees',f.expenditure_category_code)
+				break
+			end
+		end
+	end
+
+  def test_v70
+		h = FECHell.new
+
+		fec_version,original_form_type, form_type, values = h.header_lines(@testfiles["7.0"])
+		
+		h.process(@testfiles["7.0"]) do |line|
+			schedule = line[0]
+			values = line[1]
+
+			f = FECForm.schedule_for(schedule, fec_version, values)			
+		
+			if schedule == "SB"		
+						
+				assert_equal('C00462721',f.committee_fecid)
+				assert_equal('ORG',f.entity_type)
+				assert_equal('AT&T Mobility',f.payee_organization_name)
+				assert_equal('PO BOX 30218',f.payee_street_1)
+				assert_equal('',f.payee_street_2)
+				assert_equal('Los Angeles',f.payee_city)
+				assert_equal('CA',f.payee_state)
+				assert_equal('900300218',f.payee_zip)
+				assert_equal('P2010',f.item_election_code)
+				assert_equal('',f.item_election_other_description)
+				assert_equal('20110315',f.expenditure_date)
+				assert_equal('400.00',f.expenditure_amount)
+				assert_equal('',f.expenditure_purpose_code)
+				assert_equal('Paid off debt',f.expenditure_category_code)
 				break
 			end
 		end

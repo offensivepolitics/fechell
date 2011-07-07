@@ -20,6 +20,7 @@ class TC_FECTestForm3 < Test::Unit::TestCase
 		@testfiles["6.2"] = "tests/testdata/F3-6.2-350353.fec"
 		@testfiles["6.3"] = "tests/testdata/F3-6.3-413014.fec"
 		@testfiles["6.4"] = "tests/testdata/F3-6.4-424094.fec"
+		@testfiles["7.0"] = "tests/testdata/F3-7.0-723958.fec"
 		
 	end
 
@@ -917,6 +918,119 @@ class TC_FECTestForm3 < Test::Unit::TestCase
 		end
 		
 	end
+
+	def test_v70
+		h = FECHell.new
+
+		fec_version,original_form_type, form_type, values = h.header_lines(@testfiles["7.0"])
+		
+		h.process(@testfiles["7.0"]) do |line|
+			schedule = line[0]
+			values = line[1]
+	
+			f = FECForm.schedule_for(schedule, fec_version, values)			
+			
+			if schedule == "F3"
+				assert_equal("C00374058", f.committee_fecid)
+				assert_equal("", f.change_of_address)
+				assert_equal("A Whole Lot of People for Grijalva Congressional Committee", f.committee_name)
+
+				assert_equal("PO Box 1242", f.street_1)
+				assert_equal("", f.street_2)
+				assert_equal("Tucson", f.city)
+				assert_equal("AZ", f.state)
+				assert_equal("857021242", f.zip)
+				
+				assert_equal("AZ", f.election_state)
+				assert_equal("07", f.election_district)
+
+				assert_equal("Q1", f.report_code)
+				
+				assert_equal("", f.election_code)
+
+				assert_equal("", f.date_of_election)
+				assert_equal("", f.state_of_election)
+				assert_equal("20110101", f.date_from_coverage)
+				assert_equal("20110331", f.date_through_coverage)
+				assert_equal("20110415", f.date_signed)
+
+				assert_equal('53627.22', f.col_A_line_6a)
+				assert_equal('225.00', f.col_A_line_6b)
+				assert_equal('53402.22', f.col_A_line_6c)
+				assert_equal('29283.70', f.col_A_line_7a)
+				assert_equal('1565.94', f.col_A_line_7b)
+				assert_equal('27717.76', f.col_A_line_7c)
+				assert_equal('54722.23', f.col_A_line_8)
+				assert_equal('0.00', f.col_A_line_9)
+				assert_equal('1393.39', f.col_A_line_10)
+				
+				assert_equal('25600.00', f.col_A_line_11ai)
+				assert_equal('7527.22', f.col_A_line_11aii)
+				assert_equal('33127.22', f.col_A_line_11aiii)
+				assert_equal('0.00', f.col_A_line_11b)
+				assert_equal('20500.00', f.col_A_line_11c)
+				assert_equal('0.00', f.col_A_line_11d)
+				assert_equal('53627.22', f.col_A_line_11e)
+				assert_equal('0.00', f.col_A_line_12)
+				assert_equal('0.00', f.col_A_line_13a)
+				assert_equal('0.00', f.col_A_line_13b)
+				assert_equal('0.00', f.col_A_line_13c)
+				assert_equal('1565.94', f.col_A_line_14)
+				assert_equal('3000.00', f.col_A_line_15)
+				assert_equal('58193.16', f.col_A_line_16)
+				assert_equal('29283.70', f.col_A_line_17)
+				assert_equal('0.00', f.col_A_line_18)
+				assert_equal('0.00', f.col_A_line_19a)
+				assert_equal('0.00', f.col_A_line_19b)
+				assert_equal('0.00', f.col_A_line_19c)
+				assert_equal('200.00', f.col_A_line_20a)
+				assert_equal('0.00', f.col_A_line_20b)
+				assert_equal('25.00', f.col_A_line_20c)
+				assert_equal('225.00', f.col_A_line_20d)
+				assert_equal('4234.00', f.col_A_line_21)
+				assert_equal('33742.70', f.col_A_line_22)
+				assert_equal('30271.77', f.col_A_line_23)
+				assert_equal('58193.16', f.col_A_line_24)
+				assert_equal('88464.93', f.col_A_line_25)
+				assert_equal('33742.70', f.col_A_line_26)
+				assert_equal('54722.23', f.col_A_line_27)
+
+				assert_equal('59356.52', f.col_B_line_6a)
+				assert_equal('1770.00', f.col_B_line_6b)
+				assert_equal('57586.52', f.col_B_line_6c)
+				assert_equal('128287.06', f.col_B_line_7a)
+				assert_equal('15041.68', f.col_B_line_7b)
+				assert_equal('113245.38', f.col_B_line_7c)
+				assert_equal('34604.70', f.col_B_line_11aiii)
+				assert_equal('0.00', f.col_B_line_11b)
+				assert_equal('24751.82', f.col_B_line_11c)
+				assert_equal('0.00', f.col_B_line_11d)
+				assert_equal('59356.52', f.col_B_line_11e)
+				assert_equal('0.00', f.col_B_line_12)
+				assert_equal('0.00', f.col_B_line_13a)
+				assert_equal('0.00', f.col_B_line_13b)
+				assert_equal('0.00', f.col_B_line_13c)
+				assert_equal('15041.68', f.col_B_line_14)
+				assert_equal('3000.00', f.col_B_line_15)
+				assert_equal('77398.20', f.col_B_line_16)
+				assert_equal('128287.06', f.col_B_line_17)
+				assert_equal('0.00', f.col_B_line_18)
+				assert_equal('0.00', f.col_B_line_19a)
+				assert_equal('0.00', f.col_B_line_19b)
+				assert_equal('0.00', f.col_B_line_19c)
+				assert_equal('1245.00', f.col_B_line_20a)
+				assert_equal('0.00', f.col_B_line_20b)
+				assert_equal('525.00', f.col_B_line_20c)
+				assert_equal('1770.00', f.col_B_line_20d)
+				assert_equal('25834.00', f.col_B_line_21)
+				assert_equal('155891.06', f.col_B_line_22)
+				
+				break
+			end
+		end
+		
+	end
+
 
 	def test_v63
 		h = FECHell.new
