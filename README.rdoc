@@ -80,6 +80,10 @@ Parsing a loading electronically filed fundraising reports from the Federal Elec
 
 
 == Changes
+  0.2.0
+    Updated CSV definition for V7.0 of FECFile.
+    Added tests for V7.0, except Schedule C/1 since nobody has filed an actual for yet!
+    
   0.1.9
     Massive speedup in form-type detection
     Dozens of changes to definition files 

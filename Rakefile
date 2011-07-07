@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('fechell', '0.1.9') do |p|
+Echoe.new('fechell', '0.2.0') do |p|
   p.description    = "Parse electronically filed FEC reports."
   p.url            = "http://offensivepolitics.net/fechell"
   p.author         = "Jason Holt"
