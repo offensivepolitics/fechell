@@ -408,7 +408,7 @@ class ScheduleA < FECForm
 		field(:contribution_aggregate, ["5.3","5.2"], "AGGREGATE AMT TO DATE")
 		field(:contribution_aggregate, ["5.1", "5.00", "3.00"], "AGGREGATE AMT Y-T-D")
 		
-		field(:contribution_code, ["8.0","7.0","6.4","6.3", "6.2", "6.1"], "CONTRIBUTION PURPOSE CODE")
+		field(:contribution_code, ["7.0","6.4","6.3", "6.2", "6.1"], "CONTRIBUTION PURPOSE CODE")
 		field(:contribution_code, ["5.3", "5.2", "5.1", "5.00", "3.00"], "TRANS CODE")
 		
 		field(:contribution_description, ["8.0","7.0","6.4","6.3", "6.2", "6.1"], "CONTRIBUTION PURPOSE DESCRIP")
