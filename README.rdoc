@@ -80,6 +80,10 @@ Parsing a loading electronically filed fundraising reports from the Federal Elec
 
 
 == Changes
+	0.2.1
+		Updated CSV definitions for V8.0 of FECFile
+		Removed contribution_code, expenditure_purpose_code from SA and SB respectively in 8.0 defs.
+		
   0.2.0
     Updated CSV definition for V7.0 of FECFile.
     Added tests for V7.0, except Schedule C/1 since nobody has filed an actual for yet!
