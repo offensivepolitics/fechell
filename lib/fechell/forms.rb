@@ -542,7 +542,7 @@ class ScheduleB < FECForm
 		field(:expenditure_amount, ["8.0","7.0","6.4","6.3", "6.2", "6.1"], "EXPENDITURE AMOUNT")
 		field(:expenditure_amount, ["5.3", "5.2", "5.1", "5.00", "3.00"], "AMOUNT OF EXPENDITURE")
 
-		field(:expenditure_purpose_code, ["8.0","7.0","6.4","6.3", "6.2", "6.1"], "EXPENDITURE PURPOSE CODE")
+		field(:expenditure_purpose_code, ["7.0","6.4","6.3", "6.2", "6.1"], "EXPENDITURE PURPOSE CODE")
 		field(:expenditure_purpose_code, ["5.3", "5.2", "5.1", "5.00"], "TRANS {Purpose} CODE")
 		field(:expenditure_purpose_code, ["3.00"], "TRANS CODE")
 
