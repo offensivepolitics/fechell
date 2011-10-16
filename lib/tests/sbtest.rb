@@ -25,6 +25,7 @@ class TC_FECTestScheduleB < Test::Unit::TestCase
 		@testfiles["6.3"] = "tests/testdata/F3-6.3-413226-SB.fec"
 		@testfiles["6.4"] = "tests/testdata/F3-6.4-424586-SB.fec"		
 		@testfiles["7.0"] = "tests/testdata/F3-7.0-720829-SB.fec"
+    @testfiles["8.0"] = "tests/testdata/F3-8.0-748835.fec"		
 	end
 	
 	def test_v300
@@ -416,6 +417,37 @@ class TC_FECTestScheduleB < Test::Unit::TestCase
 			end
 		end
 	end
+	
+	def test_v8
+		h = FECHell.new
+
+		fec_version,original_form_type, form_type, values = h.header_lines(@testfiles["8.0"])
+		
+		h.process(@testfiles["8.0"]) do |line|
+			schedule = line[0]
+			values = line[1]
+
+			f = FECForm.schedule_for(schedule, fec_version, values)			
+		
+			if schedule == "SB"		
+						
+				assert_equal('C00374058',f.committee_fecid)
+				assert_equal('ORG',f.entity_type)
+				assert_equal('National Democratic Club',f.payee_organization_name)
+				assert_equal('30 Ivy St SE',f.payee_street_1)
+				assert_equal('',f.payee_street_2)
+				assert_equal('Washington',f.payee_city)
+				assert_equal('DC',f.payee_state)
+				assert_equal('200034006',f.payee_zip)
+				assert_equal('P2012',f.item_election_code)
+				assert_equal('',f.item_election_other_description)
+				assert_equal('20110909',f.expenditure_date)
+				assert_equal('2308.66',f.expenditure_amount)
+				assert_equal('Catering',f.expenditure_category_code)
+				break
+			end
+		end
+  end
 
 
 end

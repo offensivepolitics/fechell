@@ -21,6 +21,7 @@ class TC_FECTestScheduleA < Test::Unit::TestCase
 		@testfiles["6.3"] = "tests/testdata/F3-6.3-413014.fec"
 		@testfiles["6.4"] = "tests/testdata/F3-6.4-424094.fec"		
 		@testfiles["7.0"] = "tests/testdata/F3-7.0-723958.fec"
+    @testfiles["8.0"] = "tests/testdata/F3-8.0-748835.fec"
 	end
 	
 	def test_v300
@@ -376,6 +377,37 @@ class TC_FECTestScheduleA < Test::Unit::TestCase
 			end
 		end
 	end		
+
+  def test_v80
+		h = FECHell.new
+
+		fec_version,original_form_type, form_type, values = h.header_lines(@testfiles["8.0"])
+		
+		h.process(@testfiles["8.0"]) do |line|
+			schedule = line[0]
+			values = line[1]
+			f = FECForm.schedule_for(schedule, fec_version, values)			
+			if schedule == "SA"	
+        assert_equal('C00374058', f.committee_fecid)
+				assert_equal('IND', f.entity_type)
+				assert_equal('Myers', f.contributor_last_name)
+				assert_equal('Nancy', f.contributor_first_name)
+				assert_equal('807 Davis St', f.contributor_street_1)
+				assert_equal('Unit 2104', f.contributor_street_2)
+				assert_equal('Evanston', f.contributor_city)
+				assert_equal('IL', f.contributor_state)
+				assert_equal('602017104', f.contributor_zip)
+				assert_equal('P2012', f.item_election_code)
+				assert_equal('', f.item_election_other_description)
+				assert_equal('20110801', f.contribution_date)
+				assert_equal('1000.00', f.contribution_amount)
+				assert_equal('1000.00', f.contribution_aggregate)
+				assert_equal('', f.contribution_description)
+				assert_equal('N/A', f.contributor_employer)	
+				assert_equal('Not Employed', f.contributor_occupation)
+      end
+    end
+  end
 
 end
 
